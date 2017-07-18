@@ -1,0 +1,19 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,38)
+  { Frame1 Frame
+    MoveScaled(2,1,59,26)
+    Arrangement = Arrange.Fill
+    Text = ("Estadisticas.") & "..."
+    { TextLabelEstadisticas TextLabel
+      MoveScaled(5,6,46,19)
+      Expand = True
+    }
+  }
+  { ButtonAplicar Button
+    MoveScaled(47,30,15,5)
+    Text = ("Aplicar")
+    Picture = Picture["icon:/16/apply"]
+  }
+}

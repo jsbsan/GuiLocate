@@ -1,0 +1,145 @@
+' Gambas class file
+
+Public DirectorioInicial As String
+
+Public MiGrupoScroll As New GrupoScrollview
+
+Public Sub Form_Open()
+
+  'me pongo en el centro de la pantalla, parte superior
+  Me.x = Screen.w / 2 - Me.w / 2
+  Me.y = 0
+
+  DirectorioInicial = Settings["DirectorioInicial", User.home]
+  TextBoxBusqueda.SetFocus()
+
+  MiGrupoScroll.add(ScrollViewLibreOfficeCalc, ["ods", "xls", "csv"], IconPanel1)
+  MiGrupoScroll.add(scrollViewLibreOfficedoc, ["doc", "odt", "txt", "rtf", "pps", "ppt"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewImagenes, ["png", "jpeg", "jpg", "tiff", "bmp"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewPDF, ["pdf"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewVideo, ["mp4", "avi", "mov", "wmv", "mpeg"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewMusica, ["mp3", "ogg", "wav"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewComprimido, ["gz", "tar", "zip", "rar", "7z"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewCarpetas, ["directory"], IconPanel1, "carpeta")
+  MiGrupoScroll.add(ScrollViewLogs, ["log"], IconPanel1)
+
+  Me.Title = Application.Name & " version " & Application.Version
+
+End
+
+Public Sub ButtonBuscar_Click()
+
+  Dim linea As String
+
+  Dim contenido As String
+  Dim cadenas As String[]
+
+  'buscamos con locate !!!
+  Application.busy = 1
+  Shell "locate -i '" & TextBoxBusqueda.text & "'" To contenido ''con el parametro -i ignoro mayusculas
+
+  cadenas = Split(contenido, "\n")
+
+  MiGrupoScroll.limpiar()
+
+  For Each linea In cadenas
+
+    If MiGrupoScroll.analisis(linea) Then Continue
+
+  Next
+
+  MiGrupoScroll.actualizarNumero()
+  Application.busy = 0
+
+End
+
+Public Function limpiezaContenedores(contenedor As ScrollView) As Container
+
+  ' Dim lista As Variant[]
+  ' Dim elemento As Variant[]
+  Dim nombre As String
+  Dim padre As Container
+
+  nombre = contenedor.Name
+  padre = contenedor.Parent
+
+  contenedor.delete()
+
+  contenedor = New ScrollView(padre)
+
+  contenedor.name = nombre
+
+  contenedor.Arrangement = Arrange.Vertical
+  contenedor.Expand = True
+  Return contenedor
+
+End
+
+Public Sub ButtonConfigurar_Click()
+
+  FormConfigurar.ShowModal()
+
+End
+
+Public Sub TextBoxBusqueda_KeyPress()
+
+  If Key.code = Key.enter Or Key.code = Key.Return Then
+    ButtonBuscar_Click()
+  Endif
+
+End
+
+Public Sub agregar(c As Container, fichero As String, Optional tipologia As String)
+
+  Dim hboxtmp As HBox
+  Dim labeltmp As Label
+  Dim botontmp As Button
+
+  'creo un hbox en el contenedor
+
+  hboxtmp = New HBox(c)
+  ' hboxtmp.Expand = True
+  hboxtmp.h = 20
+
+  labeltmp = New Label(hboxtmp)
+  'escribo el nombre del fichero, o el directorio de la carpeta
+  If tipologia = "directorio" Then
+    labeltmp.text = File.dir(fichero)
+  Else
+
+    labeltmp.text = File.Name(fichero)
+  Endif
+
+  labeltmp.Tooltip = File.Dir(fichero)
+
+  labeltmp.Expand = True
+  Labeltmp.h = 19
+  Labeltmp.Border = Border.Plain
+
+  botontmp = New Button(hboxtmp) As "Observador"
+  botontmp.w = 25
+  botontmp.h = 19
+  botontmp.Picture = Picture["icon:/16/open"]
+
+  If tipologia = "directorio" Then
+    botontmp.tag = [File.dir(fichero), "directorio"] 'guarda el nombre del fichero
+  Else
+    botontmp.tag = [fichero, "fichero"] 'guarda el nombre del fichero
+  Endif
+
+End
+
+Public Sub observador_click()
+
+  ' Print Last.tag[0]
+
+  If Last.tag[1] = "fichero" Then
+
+    'es un fichero
+    Desktop.Open(Last.tag[0])
+
+  Else
+    Shell ("thunar \"" & Last.tag[0] & "\"")
+  Endif
+
+End

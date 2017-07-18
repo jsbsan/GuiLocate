@@ -1,0 +1,27 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.9.2
+Title=GuiLocate
+Startup=FMain
+Icon=prismaticos.png
+Version=0.0.1
+Component=gb.image
+Component=gb.gui.qt
+Component=gb.form
+Component=gb.desktop.x11
+Component=gb.desktop
+Component=gb.settings
+Description="Aplicación gráfica para el comando locate. Busca tus archivos y carpetas comodamente organizados por categorias (tipos de extensión)"
+Authors="Jsbsan"
+TabSize=2
+Language=en_US
+Maintainer=jsbsan
+Address=jusabejusabe@gmail.com
+Url=http://jsbsan.blogspot.com.es/
+License=General Public License
+PackageName=guilocate-0.0.1
+CreateEachDirectory=1
+Packager=1
+Systems=debian
+Menus=debian:"Applications/File Management"
+Categories=debian:"FileManager"
+Groups=debian:"admin"

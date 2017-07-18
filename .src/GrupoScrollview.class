@@ -1,0 +1,69 @@
+' Gambas class file
+
+Private ArrayScrollView As New ScrollViewPresentacion[]
+
+Public Sub _new()
+
+End
+
+Public Sub add(MiScrollview As ScrollView, extensiones As String[], contenedorPadre As IconPanel, Optional tipo As String)
+
+  Dim tmpscroll As ScrollViewPresentacion
+  Dim tmpscrollcapr As ScrollViewPresentacionCarpeta
+  Dim indiceEnContenedorPadre As Integer = ArrayScrollView.Count
+
+  miScrollview.Expand = True
+  miScrollview.Arrangement = Arrange.Vertical
+
+  'distingo entre tipos normal (fichero) o carpetas
+
+  If IsNull(tipo) Then
+    'no se pone ningun valor en tipo
+
+    tmpscroll = New ScrollViewPresentacion(MiScrollview, extensiones, contenedorPadre, indiceEnContenedorPadre)
+    ArrayScrollView.Add(tmpscroll)
+  Else
+    'se ha puesto algun valor en el tipo, indica que es del tipo carpeta
+    tmpscrollcapr = New ScrollViewPresentacionCarpeta(MiScrollview, extensiones, contenedorPadre, indiceEnContenedorPadre)
+    ArrayScrollView.Add(tmpscrollcapr)
+  Endif
+
+End
+
+Public Sub limpiar()
+
+  Dim tmp As ScrollViewPresentacion
+
+  For Each tmp In ArrayScrollView
+    tmp.limpiar()
+  Next
+
+End
+
+Public Function analisis(linea As String) As Boolean
+
+  Dim tmp As ScrollViewPresentacion
+
+  Dim salida As Boolean = False
+
+  For Each tmp In ArrayScrollView
+    If tmp.PruebaAgregar(linea) Then
+      'se ha añadido a un grupo
+      salida = True
+      Break
+    Endif
+  Next
+
+  Return salida
+
+End
+
+Public Sub actualizarNumero()
+
+  Dim tmp As ScrollViewPresentacion
+
+  For Each tmp In ArrayScrollView
+    tmp.actualizarNumero()
+  Next
+
+End

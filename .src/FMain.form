@@ -1,0 +1,115 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,93,78)
+  Icon = Picture["prismaticos.png"]
+  Arrangement = Arrange.Vertical
+  Margin = True
+  Padding = 1
+  { HBox1 HBox
+    MoveScaled(1,0,82,4)
+    AutoResize = True
+    { ButtonConfigurar Button
+      MoveScaled(0,0,6,4)
+      ToolTip = ("configurar")
+      Picture = Picture["configurar.png"]
+    }
+    { TextBoxBusqueda TextBox
+      MoveScaled(7,0,41,4)
+      ToolTip = ("escribe el nombre del fichero o carpeta a buscar") & "..."
+    }
+    { ButtonBuscar Button
+      MoveScaled(49,0,7,4)
+      ToolTip = ("buscar")
+      Picture = Picture["icon:/16/find"]
+    }
+    { Label1 Label
+      MoveScaled(61,1,17,2)
+      AutoResize = True
+      Text = ("Autor: JSBSAN  Realizado en Gambas3")
+    }
+  }
+  { Frame1 Frame
+    MoveScaled(1,6,82,70)
+    Expand = True
+    Arrangement = Arrange.Fill
+    Text = ("Resultados de la búsqueda")
+    { IconPanel1 IconPanel
+      MoveScaled(3,4,71,65)
+      Expand = True
+      Arrangement = Arrange.Fill
+      Count = 9
+      Index = 0
+      Text = ("Office Calc [ ]")
+      Picture = Picture["calc.png"]
+      { ScrollViewLibreOfficeCalc ScrollView
+        MoveScaled(3,5,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 1
+      Text = ("Office Doc [ ]")
+      Picture = Picture["doc.png"]
+      { ScrollViewLibreOfficeDOC ScrollView
+        MoveScaled(3,2,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 2
+      Text = ("Imágenes  [ ]")
+      Picture = Picture["imagenes.png"]
+      { ScrollViewImagenes ScrollView
+        MoveScaled(6,4,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 3
+      Text = ("Pdfs  [ ]")
+      Picture = Picture["pdf.png"]
+      { ScrollViewPDF ScrollView
+        MoveScaled(9,4,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 4
+      Text = ("Vídeos  [ ]")
+      Picture = Picture["video.png"]
+      { ScrollViewVideo ScrollView
+        MoveScaled(5,4,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 5
+      Text = ("Musicas [ ]")
+      Picture = Picture["musica.png"]
+      { ScrollViewMusica ScrollView
+        MoveScaled(6,6,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 6
+      Text = ("Comprimidos [ ]")
+      Picture = Picture["comprimido.png"]
+      { ScrollViewComprimido ScrollView
+        MoveScaled(4,4,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 7
+      Text = ("Carpetas  [ ]")
+      Picture = Picture["icon:/32/directory"]
+      { ScrollViewCarpetas ScrollView
+        MoveScaled(6,3,24,41)
+        Expand = True
+        Arrangement = Arrange.Vertical
+      }
+      Index = 8
+      Text = ("log [ ]")
+      Picture = Picture["log.png"]
+      { ScrollViewLogs ScrollView
+        MoveScaled(10,11,29,43)
+      }
+      Index = 0
+    }
+  }
+}

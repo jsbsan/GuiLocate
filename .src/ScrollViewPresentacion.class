@@ -1,0 +1,108 @@
+' Gambas class file
+
+Public $MiScrollview As ScrollView
+Public $extensiones As String[]
+Private $contenedorPadre As IconPanel
+Private $indiceEnContenedorPadre As Integer
+Private $etiqueta As String
+
+Public Sub _new(MiScrollview As ScrollView, extensiones As String[], contenedorPadre As IconPanel, indiceEnContenedorPadre As Integer)
+
+  $MiScrollview = MiScrollview
+  $extensiones = extensiones
+  $contenedorPadre = contenedorPadre
+  $indiceEnContenedorPadre = indiceEnContenedorPadre
+
+  $etiqueta = $contenedorPadre[$indiceEnContenedorPadre].Text 'guardo nombre inicial...
+
+End
+
+Public Sub limpiar()
+
+  $MiScrollview.Children.Clear()
+  $contenedorPadre[$indiceEnContenedorPadre].Text = $etiqueta 'restituyo nombre inicial
+  'Print $contenedorPadre[$indiceEnContenedorPadre].Text
+  $contenedorPadre.Refresh()
+  Wait 0.01
+
+End
+
+Public Function PruebaAgregar(linea As String) As Boolean
+
+  Dim t As String
+
+  Dim extensionAnalizar As String = Lower(File.Ext(linea))
+
+  Dim okagregar As Boolean = False
+
+  For Each t In $extensiones
+
+    If t = extensionAnalizar Then
+      'agregar...
+
+      If agregar($MiScrollview, linea) Then
+        okagregar = True
+      Endif
+
+    Endif
+
+  Next
+
+  Return okagregar
+
+End
+
+Public Sub actualizarNumero()
+
+  If $MiScrollview.Children.count <> 0 Then
+    $contenedorPadre[$indiceEnContenedorPadre].Text = Replace($contenedorPadre[$indiceEnContenedorPadre].Text, "[ ]", "[ " & $MiScrollview.Children.count & " ]")
+  Endif
+
+End
+
+Public Function agregar(c As Container, fichero As String) As Boolean
+
+  Dim hboxtmp As HBox
+  Dim labeltmp As Label
+  Dim botontmp As Button
+
+  'creo un hbox en el contenedor
+
+  hboxtmp = New HBox(c)
+  ' hboxtmp.Expand = True
+  hboxtmp.h = 20
+
+  labeltmp = New Label(hboxtmp)
+  'escribo el nombre del fichero, o el directorio de la carpeta
+
+  labeltmp.text = File.Name(fichero)
+
+  labeltmp.Tooltip = File.Dir(fichero)
+
+  labeltmp.Expand = True
+  Labeltmp.h = 19
+  Labeltmp.Border = Border.Plain
+
+  botontmp = New Button(hboxtmp) As "Observador"
+  botontmp.w = 25
+  botontmp.h = 19
+  botontmp.Picture = Picture["icon:/16/open"]
+
+  botontmp.tag = [fichero, "fichero"] 'guarda el nombre del fichero
+
+End
+
+Public Sub observador_click()
+
+  'Print Last.tag[0]
+
+  If Last.tag[1] = "fichero" Then
+
+    'es un fichero
+    Desktop.Open(Last.tag[0])
+
+  Else
+    Shell ("thunar \"" & Last.tag[0] & "\"")
+  Endif
+
+End

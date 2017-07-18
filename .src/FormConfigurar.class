@@ -1,0 +1,35 @@
+' Gambas class file
+
+Private DirectorioAntesCambios As String = Settings["DirectorioInicial", User.home]
+
+Public Sub Form_Open()
+
+  Dim contenido As String
+
+  Shell "locate --statistics" To contenido
+
+  TextLabelEstadisticas.text = Replace(contenido, "\n", "<br>")
+
+  Me.Center
+
+End
+
+' Public Sub ButtonActualizar_Click()
+'
+'   Dim contra As String
+'
+'   contra = InputBox("Introduce contraseña de administrador")
+'
+'   Application.Busy = 1
+'
+'   Shell "echo " & contra & "|sudo updatedb" Wait
+'
+'   Application.Busy = 0
+'
+' End
+
+Public Sub ButtonAplicar_Click()
+
+  Me.Close
+
+End

@@ -1,0 +1,62 @@
+' Gambas class file
+
+Inherits ScrollViewPresentacion
+
+Public Function PruebaAgregar(linea As String) As Boolean
+
+  Dim t As String
+
+  Dim extensionAnalizar As String = Lower(File.ext(linea))
+
+  Dim okagregar As Boolean = False
+
+  '  Print linea, File.Ext(linea)
+
+  For Each t In Me.$extensiones
+
+    If t = extensionAnalizar Then
+      'agregar...
+
+      If Me.agregar(Me.$MiScrollview, linea) Then
+        okagregar = True
+      Endif
+
+    Endif
+
+  Next
+
+  Return okagregar
+
+End
+
+Public Function agregar(c As Container, fichero As String) As Boolean
+
+  Dim hboxtmp As HBox
+  Dim labeltmp As Label
+  Dim botontmp As Button
+
+  'creo un hbox en el contenedor
+
+  hboxtmp = New HBox(c)
+  ' hboxtmp.Expand = True
+  hboxtmp.h = 20
+
+  labeltmp = New Label(hboxtmp)
+  'escribo el nombre del fichero, o el directorio de la carpeta
+
+  labeltmp.text = File.dir(fichero)
+
+  labeltmp.Tooltip = File.Dir(fichero)
+
+  labeltmp.Expand = True
+  Labeltmp.h = 19
+  Labeltmp.Border = Border.Plain
+
+  botontmp = New Button(hboxtmp) As "Observador"
+  botontmp.w = 25
+  botontmp.h = 19
+  botontmp.Picture = Picture["icon:/16/open"]
+
+  botontmp.tag = [File.dir(fichero), "directorio"] 'guarda el nombre del fichero
+
+End
