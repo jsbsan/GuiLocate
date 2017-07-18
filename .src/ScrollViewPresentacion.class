@@ -72,6 +72,14 @@ Public Function agregar(c As Container, fichero As String) As Boolean
   ' hboxtmp.Expand = True
   hboxtmp.h = 20
 
+  botontmp = New Button(hboxtmp) As "Observador"
+  botontmp.w = 25
+  botontmp.h = 19
+  botontmp.Picture = Picture["ejecutar16.png"]
+
+  botontmp.tag = [fichero, "fichero"] 'guarda el nombre del fichero
+  botontmp.Tooltip = ("abrir")
+
   labeltmp = New Label(hboxtmp)
   'escribo el nombre del fichero, o el directorio de la carpeta
 
@@ -83,12 +91,12 @@ Public Function agregar(c As Container, fichero As String) As Boolean
   Labeltmp.h = 19
   Labeltmp.Border = Border.Plain
 
-  botontmp = New Button(hboxtmp) As "Observador"
+  botontmp = New Button(hboxtmp) As "ObservadorAbrirCarpeta"
   botontmp.w = 25
   botontmp.h = 19
-  botontmp.Picture = Picture["icon:/16/open"]
-
-  botontmp.tag = [fichero, "fichero"] 'guarda el nombre del fichero
+  botontmp.Picture = Picture["icon:/16/file-manager"]
+  botontmp.tag = [File.Dir(fichero), "fichero"] 'guarda el nombre del fichero
+  botontmp.Tooltip = ("abrir en administrador de archivos")
 
 End
 
@@ -104,5 +112,11 @@ Public Sub observador_click()
   Else
     Shell ("thunar \"" & Last.tag[0] & "\"")
   Endif
+
+End
+
+Public Sub ObservadorAbrirCarpeta_Click()
+
+  Shell ("thunar \"" & Last.tag[0] & "\"")
 
 End

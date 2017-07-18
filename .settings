@@ -21,16 +21,16 @@ Geometry=[0,67,224,280]
 
 [OpenFile]
 File[1]=".src/FMain.form"
-Active=1
+Active=8
 File[2]="ref.txt:83.2"
 File[3]=".src/FormConfigurar.form"
-File[4]=".src/FormConfigurar.class:0.32"
+File[4]=".src/FormConfigurar.class:44.43"
 File[5]="Libre-Office.png"
 Count=10
 File[6]="imagenes.png"
 File[7]=".src/GrupoScrollview.class:26.15"
-File[8]=".src/ScrollViewPresentacion.class:3.96"
-File[9]=".src/ScrollViewPresentacionCarpeta.class:11.21"
+File[8]=".src/ScrollViewPresentacion.class:30.80"
+File[9]=".src/ScrollViewPresentacionCarpeta.class:31.43"
 File[10]=".src/FMain.class:0.145"
 
 [Watches]

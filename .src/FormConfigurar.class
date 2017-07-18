@@ -4,6 +4,12 @@ Private DirectorioAntesCambios As String = Settings["DirectorioInicial", User.ho
 
 Public Sub Form_Open()
 
+  actualizarInformacion()
+
+End
+
+Public Sub actualizarInformacion()
+
   Dim contenido As String
 
   Shell "locate --statistics" To contenido
@@ -14,22 +20,27 @@ Public Sub Form_Open()
 
 End
 
-' Public Sub ButtonActualizar_Click()
 '
-'   Dim contra As String
-'
-'   contra = InputBox("Introduce contraseña de administrador")
-'
-'   Application.Busy = 1
-'
-'   Shell "echo " & contra & "|sudo updatedb" Wait
-'
-'   Application.Busy = 0
-'
-' End
 
 Public Sub ButtonAplicar_Click()
 
   Me.Close
+
+End
+
+Public Sub ButtonActualizarBaseDatos_Click()
+  ''fuente: https://www.gambas-es.org/viewtopic.php?p=11658#p11658
+
+  Dim contra As String
+
+  contra = InputBox("Introduce contraseña de administrador")
+
+  Application.Busy = 1
+
+  Shell "echo \"" & contra & "\"|sudo -S updatedb" Wait
+  actualizarInformacion()
+  Application.Busy = 0
+
+  Message.Info("Actualizada la base de datos")
 
 End

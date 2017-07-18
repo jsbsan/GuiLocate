@@ -16,4 +16,10 @@
     Text = ("Aplicar")
     Picture = Picture["icon:/16/apply"]
   }
+  { ButtonActualizarBaseDatos Button
+    MoveScaled(3,25,39,10)
+    ToolTip = ("tardará un ratito.") & "..."
+    Text = ("Actualizar Base Datos De Ficheros")
+    Picture = Picture["icon:/32/hardware"]
+  }
 }
