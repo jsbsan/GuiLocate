@@ -1,3 +1,6 @@
+[Bookmarks]
+ScrollViewPresentacion=[]
+
 [Breakpoints]
 Count=0
 
@@ -29,7 +32,7 @@ File[5]="Libre-Office.png"
 Count=10
 File[6]="imagenes.png"
 File[7]=".src/GrupoScrollview.class:26.15"
-File[8]=".src/ScrollViewPresentacion.class:30.80"
+File[8]=".src/ScrollViewPresentacion.class:19.112"
 File[9]=".src/ScrollViewPresentacionCarpeta.class:31.43"
 File[10]=".src/FMain.class:0.145"
 
