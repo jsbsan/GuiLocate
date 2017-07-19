@@ -1,4 +1,7 @@
 * Wed Jul 19 2017 jsbsan <jusabejusabe@gmail.com> 0.0.4
+- Resuelto problema de encontrar carpetas
+
+* Wed Jul 19 2017 jsbsan <jusabejusabe@gmail.com> 0.0.4
 - Mejoras en la configuracion. Ahora se pueden configurar las extensiones. Agregado grupo otros. busqueda si o no en directorios ocultos. filtrado por nombre de fichero (ya no agrega las rutas que cumplen con el filtro del nombre)
 
 * Tue Jul 18 2017 jsbsan <jusabejusabe@gmail.com> 0.0.3
