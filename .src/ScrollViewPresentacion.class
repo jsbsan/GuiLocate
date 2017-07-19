@@ -27,7 +27,7 @@ Public Sub limpiar()
 
 End
 
-Public Function PruebaAgregar(linea As String) As Boolean
+Public Function PruebaAgregar(linea As String, textoinicial As String) As Boolean
 
   Dim t As String
 
@@ -37,8 +37,8 @@ Public Function PruebaAgregar(linea As String) As Boolean
 
   For Each t In $extensiones
 
-    If t = extensionAnalizar Then
-      'agregar...
+    If t = extensionAnalizar And InStr(Upper(File.name(linea)), textoinicial) <> 0 Then
+      'agregar... si coincide la extension, y el nombre del fichero contiene el textoinicial
 
       If agregar($MiScrollview, linea) Then
         okagregar = True
@@ -97,6 +97,8 @@ Public Function agregar(c As Container, fichero As String) As Boolean
   botontmp.Picture = Picture["icon:/16/file-manager"]
   botontmp.tag = [File.Dir(fichero), "fichero"] 'guarda el nombre del fichero
   botontmp.Tooltip = ("abrir en administrador de archivos")
+
+  Return True
 
 End
 

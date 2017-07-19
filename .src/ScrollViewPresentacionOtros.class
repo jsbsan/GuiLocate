@@ -1,0 +1,13 @@
+' Gambas class file
+
+Inherits ScrollViewPresentacion
+
+Public Function PruebaAgregar(linea As String, textoinicial As String) As Boolean
+
+  'miro solo el nombre del fichero, y no la ruta completa)
+  If InStr(Upper(File.name(linea)), textoinicial) <> 0 Then
+
+    Me.agregar(Me.$MiScrollview, linea)
+  Endif
+
+End

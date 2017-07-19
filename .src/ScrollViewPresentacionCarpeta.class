@@ -2,7 +2,7 @@
 
 Inherits ScrollViewPresentacion
 
-Public Function PruebaAgregar(linea As String) As Boolean
+Public Function PruebaAgregar(linea As String, textoinicial As String) As Boolean
 
   Dim t As String
 
@@ -15,7 +15,7 @@ Public Function PruebaAgregar(linea As String) As Boolean
   For Each t In Me.$extensiones
 
     If t = extensionAnalizar Then
-      'agregar...
+      'agregar...no necesito comprobar el texto inicial
 
       If Me.agregar(Me.$MiScrollview, linea) Then
         okagregar = True
@@ -58,5 +58,6 @@ Public Function agregar(c As Container, fichero As String) As Boolean
   botontmp.Picture = Picture["icon:/16/open"]
 
   botontmp.tag = [File.dir(fichero), "directorio"] 'guarda el nombre del fichero
+  Return True
 
 End

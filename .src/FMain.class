@@ -4,7 +4,19 @@ Public DirectorioInicial As String
 
 Public MiGrupoScroll As New GrupoScrollview
 
+Private Ext_HojasDeCalculo As String[]
+Private Ext_Documentos As String[]
+Private Ext_Imagenes As String[]
+Private Ext_pdf As String[]
+Private Ext_libros As String[]
+Private Ext_videos As String[]
+Private Ext_musica As String[]
+Private Ext_comprimidos As String[]
+Private Ext_logs As String[]
+
 Public Sub Form_Open()
+
+  extensionesIniciales()
 
   'me pongo en el centro de la pantalla, parte superior
   Me.x = Screen.w / 2 - Me.w / 2
@@ -13,15 +25,20 @@ Public Sub Form_Open()
   DirectorioInicial = Settings["DirectorioInicial", User.home]
   TextBoxBusqueda.SetFocus()
 
-  MiGrupoScroll.add(ScrollViewLibreOfficeCalc, ["ods", "xls", "csv"], IconPanel1)
-  MiGrupoScroll.add(scrollViewLibreOfficedoc, ["doc", "odt", "txt", "rtf", "pps", "ppt"], IconPanel1)
-  MiGrupoScroll.add(ScrollViewImagenes, ["png", "jpeg", "jpg", "tiff", "bmp"], IconPanel1)
-  MiGrupoScroll.add(ScrollViewPDF, ["pdf"], IconPanel1)
-  MiGrupoScroll.add(ScrollViewVideo, ["mp4", "avi", "mov", "wmv", "mpeg"], IconPanel1)
-  MiGrupoScroll.add(ScrollViewMusica, ["mp3", "ogg", "wav"], IconPanel1)
-  MiGrupoScroll.add(ScrollViewComprimido, ["gz", "tar", "zip", "rar", "7z"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewLibreOfficeCalc, Ext_HojasDeCalculo, IconPanel1)
+  MiGrupoScroll.add(scrollViewLibreOfficedoc, Ext_Documentos, IconPanel1)
+  MiGrupoScroll.add(ScrollViewImagenes, Ext_Imagenes, IconPanel1)
+  MiGrupoScroll.add(ScrollViewPDF, Ext_Pdf, IconPanel1)
+  MiGrupoScroll.add(ScrollViewEPUB, Ext_Libros, IconPanel1)
+
+  MiGrupoScroll.add(ScrollViewVideo, Ext_videos, IconPanel1)
+  MiGrupoScroll.add(ScrollViewMusica, Ext_musica, IconPanel1)
+  MiGrupoScroll.add(ScrollViewComprimido, Ext_comprimidos, IconPanel1)
   MiGrupoScroll.add(ScrollViewCarpetas, ["directory"], IconPanel1, "carpeta")
-  MiGrupoScroll.add(ScrollViewLogs, ["log"], IconPanel1)
+  MiGrupoScroll.add(ScrollViewLogs, Ext_logs, IconPanel1)
+
+  'creo un grupo para meter los ficheros que  no cumplan las extensiones anteriores
+  MiGrupoScroll.TabOtros(ScrollViewOtros, IconPanel1)
 
   Me.Title = Application.Name & " version " & Application.Version
 
@@ -34,6 +51,9 @@ Public Sub ButtonBuscar_Click()
   Dim contenido As String
   Dim cadenas As String[]
 
+  Dim buscarenocultas As Boolean = Settings["SwitchButtonBuscarCarpetasOcultas", True]
+  Dim PalabraBuscada As String = Upper(TextBoxBusqueda.text)
+
   'buscamos con locate !!!
   Application.busy = 1
   Shell "locate -i '" & TextBoxBusqueda.text & "'" To contenido ''con el parametro -i ignoro mayusculas
@@ -42,9 +62,17 @@ Public Sub ButtonBuscar_Click()
 
   MiGrupoScroll.limpiar()
 
+  'reviso las lineas que ha encontrado...
+
   For Each linea In cadenas
 
-    If MiGrupoScroll.analisis(linea) Then Continue
+    If buscarenocultas = True Then
+      If MiGrupoScroll.analisis(linea, PalabraBuscada) Then Continue
+    Else
+      If InStr(linea, "/.") = 0 Then
+        If MiGrupoScroll.analisis(linea, PalabraBuscada) Then Continue
+      Endif
+    Endif
 
   Next
 
@@ -78,6 +106,10 @@ End
 Public Sub ButtonConfigurar_Click()
 
   FormConfigurar.ShowModal()
+
+  'recarga configuracion...
+
+  extensionesIniciales()
 
 End
 
@@ -141,5 +173,19 @@ Public Sub observador_click()
   Else
     Shell ("thunar \"" & Last.tag[0] & "\"")
   Endif
+
+End
+
+Public Sub extensionesIniciales()
+
+  Ext_HojasDeCalculo = Settings["HojasDeCalculo", ["ods", "xls", "csv"]]
+  Ext_Documentos = Settings["Documentos", ["doc", "odt", "txt", "rtf", "pps", "ppt"]]
+  Ext_Imagenes = Settings["Imagenes", ["png", "jpeg", "jpg", "tiff", "bmp", "ico", "svg"]]
+  Ext_Pdf = Settings["Pdf", ["pdf"]]
+  Ext_Libros = Settings["Libros", ["epub"]]
+  Ext_Videos = Settings["Videos", ["mp4", "avi", "mov", "wmv", "mpeg", "mkv"]]
+  Ext_Musica = Settings["Musica", ["mp3", "ogg", "wav"]]
+  Ext_Comprimidos = Settings["Comprimidos", ["gz", "tar", "zip", "rar", "7z"]]
+  Ext_Logs = Settings["Logs", ["log"]]
 
 End

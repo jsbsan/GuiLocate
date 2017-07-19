@@ -1,7 +1,7 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,93,78)
+  MoveScaled(0,0,93,82)
   Icon = Picture["prismaticos.png"]
   Arrangement = Arrange.Vertical
   Margin = True
@@ -35,10 +35,10 @@
     Arrangement = Arrange.Fill
     Text = ("Resultados de la búsqueda")
     { IconPanel1 IconPanel
-      MoveScaled(3,4,71,65)
+      MoveScaled(5,3,71,65)
       Expand = True
       Arrangement = Arrange.Fill
-      Count = 9
+      Count = 11
       Index = 0
       Text = ("Office Calc [ ]")
       Picture = Picture["calc.png"]
@@ -72,6 +72,12 @@
         Arrangement = Arrange.Vertical
       }
       Index = 4
+      Text = ("Epub [ ]")
+      Picture = Picture["epub.png"]
+      { ScrollViewEPUB ScrollView
+        MoveScaled(13,8,22,50)
+      }
+      Index = 5
       Text = ("Vídeos  [ ]")
       Picture = Picture["video.png"]
       { ScrollViewVideo ScrollView
@@ -79,15 +85,15 @@
         Expand = True
         Arrangement = Arrange.Vertical
       }
-      Index = 5
-      Text = ("Musicas [ ]")
+      Index = 6
+      Text = ("Música  [ ]")
       Picture = Picture["musica.png"]
       { ScrollViewMusica ScrollView
         MoveScaled(6,6,24,41)
         Expand = True
         Arrangement = Arrange.Vertical
       }
-      Index = 6
+      Index = 7
       Text = ("Comprimidos [ ]")
       Picture = Picture["comprimido.png"]
       { ScrollViewComprimido ScrollView
@@ -95,7 +101,7 @@
         Expand = True
         Arrangement = Arrange.Vertical
       }
-      Index = 7
+      Index = 8
       Text = ("Carpetas  [ ]")
       Picture = Picture["icon:/32/directory"]
       { ScrollViewCarpetas ScrollView
@@ -103,11 +109,17 @@
         Expand = True
         Arrangement = Arrange.Vertical
       }
-      Index = 8
+      Index = 9
       Text = ("log [ ]")
       Picture = Picture["log.png"]
       { ScrollViewLogs ScrollView
         MoveScaled(10,11,29,43)
+      }
+      Index = 10
+      Text = ("Otros [ ]")
+      Picture = Picture["otros.png"]
+      { ScrollViewOtros ScrollView
+        MoveScaled(11,11,29,43)
       }
       Index = 0
     }

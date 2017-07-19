@@ -2,7 +2,21 @@
 
 Private ArrayScrollView As New ScrollViewPresentacion[]
 
+Private $MiScrollViewOtros As ScrollViewPresentacionOtros
+
 Public Sub _new()
+
+End
+
+Public Sub TabOtros(MiScrollViewOtros As ScrollView, iconpaneltmp As IconPanel)
+  'parte incluida para poner los archivos que no cumplan las otras extensiones de los grupos
+
+  Dim indiceEnContenedorPadre As Integer = ArrayScrollView.Count
+
+  MiScrollViewOtros.Expand = True
+  MiScrollViewOtros.Arrangement = Arrange.Vertical
+
+  $MiScrollViewOtros = New ScrollViewPresentacionOtros(MiScrollViewOtros, [""], iconpaneltmp, indiceEnContenedorPadre)
 
 End
 
@@ -37,22 +51,28 @@ Public Sub limpiar()
   For Each tmp In ArrayScrollView
     tmp.limpiar()
   Next
+  $MiScrollViewOtros.limpiar()
 
 End
 
-Public Function analisis(linea As String) As Boolean
+Public Function analisis(linea As String, textoinicial As String) As Boolean
 
   Dim tmp As ScrollViewPresentacion
 
   Dim salida As Boolean = False
 
   For Each tmp In ArrayScrollView
-    If tmp.PruebaAgregar(linea) Then
+    If tmp.PruebaAgregar(linea, textoInicial) Then
       'se ha añadido a un grupo
       salida = True
       Break
+
     Endif
   Next
+
+  If salida = False Then
+    $MiScrollViewOtros.PruebaAgregar(linea, textoinicial)
+  Endif
 
   Return salida
 
@@ -65,5 +85,7 @@ Public Sub actualizarNumero()
   For Each tmp In ArrayScrollView
     tmp.actualizarNumero()
   Next
+
+  $MiScrollViewOtros.actualizarNumero()
 
 End

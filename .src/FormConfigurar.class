@@ -5,6 +5,9 @@ Private DirectorioAntesCambios As String = Settings["DirectorioInicial", User.ho
 Public Sub Form_Open()
 
   actualizarInformacion()
+  SwitchButtonBuscarCarpetasOcultas.value = Settings["SwitchButtonBuscarCarpetasOcultas", True]
+
+  cargaextensiones()
 
 End
 
@@ -24,6 +27,18 @@ End
 
 Public Sub ButtonAplicar_Click()
 
+  Settings["SwitchButtonBuscarCarpetasOcultas"] = SwitchButtonBuscarCarpetasOcultas.Value
+
+  Settings["HojasDeCalculo"] = Split(TextBox1.text, ",")
+  Settings["Documentos"] = Split(TextBox2.text, ",")
+  Settings["Imagenes"] = Split(TextBox3.text, ",")
+  Settings["Pdf"] = Split(TextBox4.text, ",")
+  Settings["Libros"] = Split(TextBox5.text, ",")
+  Settings["Videos"] = Split(TextBox6.text, ",")
+  Settings["Musica"] = Split(TextBox7.text, ",")
+  Settings["Comprimidos"] = Split(textBox8.text, ",")
+  Settings["Logs"] = Split(TextBox9.text, ",")
+
   Me.Close
 
 End
@@ -42,5 +57,41 @@ Public Sub ButtonActualizarBaseDatos_Click()
   Application.Busy = 0
 
   Message.Info("Actualizada la base de datos")
+
+End
+
+Public Sub cargaextensiones()
+
+  TextBox1.text = Settings["HojasDeCalculo", ["ods", "xls", "csv"]].join(",")
+  TextBox2.text = Settings["Documentos", ["doc", "odt", "txt", "rtf", "pps", "ppt"]].join(",")
+  TextBox3.text = Settings["Imagenes", ["png", "jpeg", "jpg", "tiff", "bmp", "ico", "svg"]].join(",")
+  TextBox4.text = Settings["Pdf", ["pdf"]].join(",")
+  TextBox5.text = Settings["Libros", ["epub"]].join(",")
+  TextBox6.text = Settings["Videos", ["mp4", "avi", "mov", "wmv", "mpeg", "mkv"]].join(",")
+  TextBox7.text = Settings["Musica", ["mp3", "ogg", "wav"]].join(",")
+  TextBox8.text = Settings["Comprimidos", ["gz", "tar", "zip", "rar", "7z"]].join(",")
+  TextBox9.text = Settings["Logs", ["log"]].join(",")
+
+End
+
+Public Sub ReiniciarConfiguracionInicial()
+
+  Settings["HojasDeCalculo"] = ["ods", "xls", "csv"]
+  Settings["Documentos"] = ["doc", "odt", "txt", "rtf", "pps", "ppt"]
+  Settings["Imagenes"] = ["png", "jpeg", "jpg", "tiff", "bmp", "ico", "svg"]
+  Settings["Pdf"] = ["pdf"]
+  Settings["Libros"] = ["epub"]
+  Settings["Videos"] = ["mp4", "avi", "mov", "wmv", "mpeg", "mkv"]
+  Settings["Musica"] = ["mp3", "ogg", "wav"]
+  Settings["Comprimidos"] = ["gz", "tar", "zip", "rar", "7z"]
+  Settings["Logs"] = ["log"]
+
+  cargaextensiones()
+
+End
+
+Public Sub ButtonRestaurarExtensiones_Click()
+
+  ReiniciarConfiguracionInicial()
 
 End

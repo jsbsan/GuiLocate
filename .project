@@ -3,7 +3,7 @@
 Title=GuiLocate
 Startup=FMain
 Icon=prismaticos.png
-Version=0.0.3
+Version=0.0.4
 Component=gb.image
 Component=gb.gui.qt
 Component=gb.form
@@ -18,7 +18,7 @@ Maintainer=jsbsan
 Address=jusabejusabe@gmail.com
 Url=http://jsbsan.blogspot.com.es/
 License=General Public License
-PackageName=guilocate-0.0.3
+PackageName=guilocate-0.0.4
 CreateEachDirectory=1
 Packager=1
 Systems=debian
