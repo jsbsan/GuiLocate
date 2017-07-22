@@ -24,10 +24,10 @@ Geometry=[0,67,224,280]
 
 [OpenFile]
 File[1]=".src/FMain.form"
-Active=10
+Active=4
 File[2]="ref.txt:83.2"
 File[3]=".src/FormConfigurar.form"
-File[4]=".src/FormConfigurar.class:0.2"
+File[4]=".src/FormConfigurar.class:16.54"
 File[5]="Libre-Office.png"
 Count=11
 File[6]="imagenes.png"

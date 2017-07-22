@@ -52,16 +52,19 @@ Public Sub ButtonActualizarBaseDatos_Click()
 
   contra = InputBox(("Introduce contraseña de administrador"))
 
-  Application.Busy = 1
+  If contra <> "" Then
 
-  Shell "echo \"" & contra & "\"|sudo -S updatedb" Wait
-  actualizarInformacion()
-  Application.Busy = 0
+    Application.Busy = 1
 
-  Message.Info(("Actualizada la base de datos, se cerrará el programa"))
+    Shell "echo \"" & contra & "\"|sudo -S updatedb" Wait
+    actualizarInformacion()
+    Application.Busy = 0
 
-  mensaje.Add("salir")
-  Me.Close()
+    Message.Info(("Actualizada la base de datos, se cerrará el programa"))
+
+    mensaje.Add("salir")
+    Me.Close()
+  Endif
 
 End
 
