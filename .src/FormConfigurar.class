@@ -1,5 +1,7 @@
 ' Gambas class file
 
+Public mensaje As String[]
+
 Private DirectorioAntesCambios As String = Settings["DirectorioInicial", User.home]
 
 Public Sub Form_Open()
@@ -48,7 +50,7 @@ Public Sub ButtonActualizarBaseDatos_Click()
 
   Dim contra As String
 
-  contra = InputBox("Introduce contraseña de administrador")
+  contra = InputBox(("Introduce contraseña de administrador"))
 
   Application.Busy = 1
 
@@ -56,7 +58,10 @@ Public Sub ButtonActualizarBaseDatos_Click()
   actualizarInformacion()
   Application.Busy = 0
 
-  Message.Info("Actualizada la base de datos")
+  Message.Info(("Actualizada la base de datos, se cerrará el programa"))
+
+  mensaje.Add("salir")
+  Me.Close()
 
 End
 

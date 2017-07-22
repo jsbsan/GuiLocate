@@ -105,11 +105,20 @@ End
 
 Public Sub ButtonConfigurar_Click()
 
+  Dim mensaje As New String[]
+
+  FormConfigurar.mensaje = mensaje
+
   FormConfigurar.ShowModal()
 
-  'recarga configuracion...
+  If mensaje.count > 0 And If mensaje[0] = "salir" Then
+    'se ha actualizado la base de datos, tenemos que salir del programa
+    Me.Close()
+  Else
+    'recarga configuracion...
 
-  extensionesIniciales()
+    extensionesIniciales()
+  Endif
 
 End
 

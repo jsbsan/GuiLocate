@@ -1,3 +1,8 @@
+* Sat Jul 22 2017 jsbsan <jusabejusabe@gmail.com> 0.0.5
+
+* Sat Jul 22 2017 jsbsan <jusabejusabe@gmail.com> 0.0.5
+- cuando se actualiza la base de datos, se sale del programa para evitar cuelque que se producia
+
 * Wed Jul 19 2017 jsbsan <jusabejusabe@gmail.com> 0.0.4
 - Resuelto problema de encontrar carpetas
 
