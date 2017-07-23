@@ -26,7 +26,7 @@
     { Label1 Label
       MoveScaled(61,1,17,2)
       AutoResize = True
-      Text = ("Autor: JSBSAN  Realizado en Gambas3")
+      Text = ("   Autor: JSBSAN  Realizado en Gambas3")
     }
   }
   { Frame1 Frame

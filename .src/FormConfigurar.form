@@ -2,6 +2,7 @@
 
 { Form Form
   MoveScaled(0,0,104,66)
+  Icon = Picture["configurar.png"]
   { Frame1 Frame
     MoveScaled(2,1,58,23)
     Arrangement = Arrange.Fill

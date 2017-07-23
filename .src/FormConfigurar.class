@@ -6,6 +6,7 @@ Private DirectorioAntesCambios As String = Settings["DirectorioInicial", User.ho
 
 Public Sub Form_Open()
 
+  Me.Title = ("Configuración")
   actualizarInformacion()
   SwitchButtonBuscarCarpetasOcultas.value = Settings["SwitchButtonBuscarCarpetasOcultas", True]
 
