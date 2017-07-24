@@ -1,0 +1,143 @@
+' Gambas module file
+
+'
+' Gambas extra functions
+' Compilation of utilities and functions developed by the gambas comunity.
+'
+' Copyright (C) Martín Belmonte.
+'
+' This program is free software; you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation; either version 2 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program; if not, write to the Free Software
+' Foundation, Inc., 51 Franklin St, Fifth Floor,
+' Boston, MA  02110-1301  USA
+'
+
+Public Function DistroShort() As String
+
+  Dim strDistro As String
+  Dim strDistroShort As String
+  Dim stxDistros As New String[]
+  Dim stxDistro As New String[]
+  Dim intN As Integer
+
+  Shell "lsb_release -d | cut -d':' -f2" To strDistro
+  Replace(strDistro, gb.Tab, "")
+  strDistro = Trim(strDistro)
+
+  strDistro = strDistro
+  strDistro = Replace(strDistro, "  ", " ")
+  strDistro = Replace(strDistro, "  ", " ")
+  strDistro = Replace(strDistro, gb.Tab, " ")
+  strDistro = Replace(strDistro, gb.Tab, " ")
+  strDistro = String.LCase(strDistro)
+
+  stxDistros.clear
+  stxDistro.clear
+
+  stxDistros.Add("arch")
+  stxDistros.Add("debian")
+  stxDistros.Add("fedora")
+  stxDistros.Add("redhat")
+  stxDistros.Add("gentoo")
+  stxDistros.Add("manjaro")
+  stxDistros.Add("mint")
+  stxDistros.Add("opensuse")
+  stxDistros.Add("ubuntu")
+
+  stxDistro = Split(strDistro, " ")
+
+  strDistroShort = "Desconocida"
+
+  For intN = 0 To stxDistro.Max
+
+    If stxDistros.Find(stxDistro[intN]) <> -1 Then
+      strDistroShort = stxDistro[intN]
+      Break
+    Endif
+
+  Next
+
+  Return strDistroShort
+
+End
+
+Public Function PkgStat(strPkg As String) As Boolean ''Devuelve el estado respecto a la instalacion de un paquete. Requiere como parametro de entrada el nombre exacto del paquete.
+
+  Dim strDistroShort As String
+  Dim strCommand As String
+  Dim strPkgStatus As String
+  Dim bolPkgStatus As Boolean
+
+  strDistroShort = DistroShort()
+
+  ' Obtencion de resultados
+  Select strDistroShort
+    Case "arch", "manjaro"
+      strCommand = "pacman -Qs " & strPkg
+
+      Shell strCommand & " 2>&1" To strPkgStatus
+
+      If strPkgStatus <> "" Then
+        strPkgStatus = Split(strPkgStatus, "\n")[0]
+        strPkgStatus = Split(strPkgStatus, " ")[0]
+      Endif
+
+      Select strPkgStatus
+        Case "local/" & strPkg
+          bolPkgStatus = True ' "yes"
+        Case Else
+          bolPkgStatus = False '"no"
+      End Select
+
+    Case "debian", "ubuntu", "mint"
+
+      strCommand = "dpkg-query -W -f='${Status}\n' " & strPkg
+
+      Shell strCommand & " 2>&1" To strPkgStatus
+
+      If strPkgStatus = "install ok installed\n" Then
+        bolPkgStatus = True ' "yes"
+      Else
+        bolPkgStatus = False '"no"
+      Endif
+
+  End Select
+
+  Return bolPkgStatus
+
+End
+
+Public Function PkgDep(stxPackages As String[]) As String[] ''Verifica si los paqutes que se le pasan como parametros en una matriz, estan instalados en el sistema, devuelve una matriz con los paquetes que no estan instalados, si todo lo estuviera la matriz estara vacia.
+
+  Dim intPkg As Integer
+  Dim stxMissing As New String[] ' Lista de paquetes que falta instalar
+
+  For intPkg = 0 To stxPackages.Max
+    If PkgStat(stxPackages[intPkg]) = False Then
+      stxMissing.Add(stxPackages[intPkg])
+    Endif
+  Next
+
+  Return stxMissing
+
+End
+
+Public Function DeFiBro() As String ''Devuelve el administrador de archivos por defecto.
+
+  Dim str As String
+
+  Shell "xdg-mime query default inode/directory" To str
+
+  Return str
+
+End
