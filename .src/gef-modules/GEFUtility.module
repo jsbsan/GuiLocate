@@ -1,0 +1,54 @@
+' Gambas module file
+
+' Gambas extra functions
+' Armazón para contruir pogramas.
+'
+' Copyright (C) Martín Belmonte.
+'
+' This program is free software; you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation; either version 2 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program; if not, write to the Free Software
+' Foundation, Inc., 51 Franklin St, Fifth Floor,
+' Boston, MA  02110-1301  USA
+'
+
+Public Function FileLoad(strPath As String) As String[] ''Devuelve una matriz de texto con los valores listados en un archivo de texto desl cual se pasa su ruta como parametro.
+
+  Dim strList As String
+  Dim stxListTmp As New String[]
+  Dim stxList As New String[]
+  Dim intList As Integer
+
+  stxList.Clear
+
+  If Exist(strPath) Then
+
+    strList = File.Load(strPath)
+
+    If InStr(strList, "\n") > -1 Then
+      stxListTmp = Split(strList, "\n")
+    Else
+      If String.Len(strList) > 0 Then
+        stxListTmp.Add(strList)
+      Endif
+    Endif
+
+    For intList = 0 To stxListTmp.Max
+      If stxListTmp[intList] <> "" Then
+        stxList.Add(stxListTmp[intList])
+      Endif
+    Next
+  Endif
+
+  Return stxList
+
+End

@@ -112,13 +112,19 @@ Public Sub observador_click()
     Desktop.Open(Last.tag[0])
 
   Else
-    Shell ("thunar \"" & Last.tag[0] & "\"")
+    '//// Tincho ////////////////////////////////////////////////////////////////
+    'Shell ("thunar \"" & Last.tag[0] & "\"")
+    Desktop.Open(Last.tag[0])
+    '////////////////////////////////////////////////////////////////////////////
   Endif
 
 End
 
 Public Sub ObservadorAbrirCarpeta_Click()
 
-  Shell ("thunar \"" & Last.tag[0] & "\"")
+  '//// Tincho ////////////////////////////////////////////////////////////////
+  'Shell ("thunar \"" & Last.tag[0] & "\"")
+  Desktop.Open(Last.tag[0])
+  '////////////////////////////////////////////////////////////////////////////
 
 End

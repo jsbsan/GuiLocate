@@ -16,6 +16,11 @@ Private Ext_logs As String[]
 
 Public Sub Form_Open()
 
+  '//// Tincho ////////////////////////////////////////////////////////////////
+  Dim stxDep As New String[]
+  Dim stxInstall As New String[]
+  Dim str As String
+  '////////////////////////////////////////////////////////////////////////////
   extensionesIniciales()
 
   'me pongo en el centro de la pantalla, parte superior
@@ -41,6 +46,31 @@ Public Sub Form_Open()
   MiGrupoScroll.TabOtros(ScrollViewOtros, IconPanel1)
 
   Me.Title = Application.Name & " version " & Application.Version
+  '//// Tincho ////////////////////////////////////////////////////////////////
+  stxDep = GEFUtility.FileLoad("./deb.txt")
+  If stxDep.Count > 0 Then
+    stxInstall = GEFSys.PkgDep(stxDep)
+    If stxInstall.Count > 0 Then
+      str &= ("Debes instalar los siguientes paquetes") & ":\n"
+      Select GEFSys.DistroShort()
+        Case "debian", "ubuntu", "mint"
+          str &= "sudo apt-get install " & stxInstall.Join(" ")
+        Case "arch", "manjaro"
+          str &= "sudo pacman -S " & stxInstall.Join(" ")
+        Case "fedora", "redhat"
+          str &= "sudo dnf install " & stxInstall.Join(" ")
+        Case "gentoo"
+          str &= "sudo emerge -a " & stxInstall.Join(" ")
+        Case "suse", "opensuse"
+          str &= "sudo zipper install " & stxInstall.Join(" ")
+      End Select
+
+      File.Save("/tmp/apt.txt", str)
+      Wait 1
+      Desktop.Open("/tmp/apt.txt")
+    Endif
+  Endif
+  '/////////////////////////////////////////////////////////////////////////////
 
 End
 
@@ -180,7 +210,11 @@ Public Sub observador_click()
     Desktop.Open(Last.tag[0])
 
   Else
-    Shell ("thunar \"" & Last.tag[0] & "\"")
+    '//// Tincho ////////////////////////////////////////////////////////////////
+    'Shell ("thunar \"" & Last.tag[0] & "\"")
+    Desktop.Open(Last.tag[0])
+    '////////////////////////////////////////////////////////////////////////////
+
   Endif
 
 End
