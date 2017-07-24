@@ -24,18 +24,21 @@ Geometry=[0,67,224,280]
 
 [OpenFile]
 File[1]=".src/FMain.form"
-Active=1
+Active=8
 File[2]="ref.txt:83.2"
 File[3]=".src/FormConfigurar.form"
 File[4]=".src/FormConfigurar.class:0.7"
 File[5]="Libre-Office.png"
-Count=11
+Count=14
 File[6]="imagenes.png"
 File[7]=".src/GrupoScrollview.class:24.72"
 File[8]=".src/ScrollViewPresentacion.class:87.39"
 File[9]=".src/ScrollViewPresentacionCarpeta.class:28.14"
-File[10]=".src/FMain.class:26.97"
+File[10]=".src/FMain.class:2.18"
 File[11]=".src/ScrollViewPresentacionOtros.class:7.10"
+File[12]="deb.txt:0.0"
+File[13]=".src/gef-modules/GEFSys.module:0.93"
+File[14]=".src/gef-modules/GEFUtility.module:0.0"
 
 [Watches]
 Count=0
